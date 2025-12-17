@@ -3,7 +3,7 @@
 namespace DataPlay\Services;
 
 use DataPlay\Services\Contracts\NewableTrait;
-use DataPlay\Services\Exceptions\DataPlaySyncEngineException;
+use DataPlay\Services\Exceptions\DataSyncEngineException;
 
 class DataSyncEngine
 {
@@ -64,12 +64,12 @@ class DataSyncEngine
     {
         throw_if(
             empty($this->uniqueKeys),
-            new DataPlaySyncEngineException('Cannot get payload without unique keys.')
+            new DataSyncEngineException('Cannot get payload without unique keys.')
         );
 
         throw_if(
             empty($this->data),
-            new DataPlaySyncEngineException('Cannot get payload  without data.')
+            new DataSyncEngineException('Cannot get payload  without data.')
         );
 
         return array_intersect_key($this->data, array_flip($keys));

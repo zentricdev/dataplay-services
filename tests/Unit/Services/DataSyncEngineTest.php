@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services;
 
 use DataPlay\Services\DataSyncEngine;
-use DataPlay\Services\Exceptions\DataPlaySyncEngineException;
+use DataPlay\Services\Exceptions\DataSyncEngineException;
 
 dataset('engine_data', [
     [
@@ -46,12 +46,12 @@ test('payload throws when unique keys are not set', function(DataSyncEngine $eng
     $engine->setData(['id' => $data['id']]);
 
     expect(fn () => $engine->payload(['id']))
-        ->toThrow(DataPlaySyncEngineException::class);
+        ->toThrow(DataSyncEngineException::class);
 })->with('engine_data');
 
 test('payload throws when data is not set', function(DataSyncEngine $engine, array $data): void {
     $engine->setData([]);
 
     expect(fn () => $engine->payload(['id']))
-        ->toThrow(DataPlaySyncEngineException::class);
+        ->toThrow(DataSyncEngineException::class);
 })->with('engine_data');

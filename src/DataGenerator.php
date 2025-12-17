@@ -3,6 +3,7 @@
 namespace DataPlay\Services;
 
 use DataPlay\Services\Contracts\NewableTrait;
+use DataPlay\Services\Exceptions\DataGeneratorException;
 use Generator;
 use Illuminate\Support\LazyCollection;
 
@@ -10,10 +11,10 @@ class DataGenerator
 {
     use NewableTrait;
 
-    /** @param array<string, string|callable(mixed...): mixed>|null $schema */
+    /** @param array<string, string|callable(mixed...): mixed> $schema */
     public function __construct(
-        protected ?array $schema = null,
-        protected ?int $limit = 1,
+        protected array $schema = [],
+        protected int $limit = 1,
     ) {}
 
     /** @param array<string, string|callable(mixed...): mixed> $schema */
@@ -27,6 +28,11 @@ class DataGenerator
     /** @return \Illuminate\Support\LazyCollection<int, mixed> */
     public function generate(): LazyCollection
     {
+        throw_if(
+            empty($this->schema),
+            new DataGeneratorException('Cannot generate data without schema.')
+        );
+
         return LazyCollection::make(function(): Generator {
             $i = 0;
 
@@ -44,10 +50,6 @@ class DataGenerator
         $pos = $index + 1;
 
         $item = [];
-
-        if ($this->schema === null) {
-            return [];
-        }
 
         foreach ($this->schema as $attribute => $render) {
             $args = (object) [
