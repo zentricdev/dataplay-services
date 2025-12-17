@@ -56,7 +56,7 @@ class QueryLog
 
     public function isEnabled(): bool
     {
-        return config(static::ENABLED);
+        return (bool) config(static::ENABLED);
     }
 
     public function filepath(): string
@@ -66,6 +66,8 @@ class QueryLog
 
     public function path(): string
     {
-        return config(static::PATH);
+        $path = config(static::PATH );
+
+        return \is_string($path) ? $path : '';
     }
 }

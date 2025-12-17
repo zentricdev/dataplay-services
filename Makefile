@@ -1,6 +1,6 @@
 lint:
-	make pint
-	make phpstan
+	@make pint
+	@make phpstan
 
 pint:
 	@./vendor/bin/pint

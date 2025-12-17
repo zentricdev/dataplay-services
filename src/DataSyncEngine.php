@@ -9,10 +9,16 @@ class DataSyncEngine
 {
     use NewableTrait;
 
+    /** @var array<string, mixed> */
     protected ?array $data = [];
-    protected array $uniqueKeys = [];
-    protected ?array $dataKeys = [];
 
+    /** @var array<string> */
+    protected array $uniqueKeys = [];
+
+    /** @var array<string> */
+    protected array $dataKeys = [];
+
+    /** @param array<string, mixed> $data */
     public function setData(array $data): static
     {
         $this->data = $data;
@@ -24,6 +30,7 @@ class DataSyncEngine
         return $this;
     }
 
+    /** @param array<string> $dataKeys */
     public function setDataKeys(array $dataKeys): static
     {
         $this->dataKeys = $dataKeys;
@@ -31,6 +38,7 @@ class DataSyncEngine
         return $this;
     }
 
+    /** @param array<string> $uniqueKeys */
     public function setUniqueKeys(array $uniqueKeys): static
     {
         $this->uniqueKeys = $uniqueKeys;
@@ -48,6 +56,10 @@ class DataSyncEngine
         return $this->payloadHash($this->dataKeys);
     }
 
+    /**
+     * @param  array<string>  $keys
+     * @return array<string, mixed>
+     */
     public function payload(array $keys): array
     {
         throw_if(
@@ -63,6 +75,7 @@ class DataSyncEngine
         return array_intersect_key($this->data, array_flip($keys));
     }
 
+    /** @param array<string> $keys */
     public function payloadHash(array $keys): string
     {
         return md5(implode('-', $this->payload($keys)));

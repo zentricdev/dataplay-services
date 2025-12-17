@@ -10,15 +10,13 @@ class DataGenerator
 {
     use NewableTrait;
 
-    /**
-     * @param  array<string, array{render: callable|string}>  $schema
-     * */
+    /** @param array<string, string|callable(mixed...): mixed>|null $schema */
     public function __construct(
         protected ?array $schema = null,
         protected ?int $limit = 1,
     ) {}
 
-    /** @param array<string, array{render: callable|string}> $schema */
+    /** @param array<string, string|callable(mixed...): mixed> $schema */
     public function schema(array $schema): static
     {
         $this->schema = $schema;
@@ -40,7 +38,7 @@ class DataGenerator
         });
     }
 
-    /** @return array<string, mixed> */
+    /** @return array<string, string|callable(mixed...): mixed> */
     protected function generateItem(int $index): array
     {
         $pos = $index + 1;
