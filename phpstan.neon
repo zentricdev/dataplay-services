@@ -1,0 +1,14 @@
+# phpstan.neon
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - src
+
+    level: 8
+
+    excludePaths:
+        - src/Commands
+        - tests/*
+        - vendor/*

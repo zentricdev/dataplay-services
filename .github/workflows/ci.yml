@@ -1,0 +1,78 @@
+name: Package CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.4]
+        stability: [prefer-stable]
+
+    name: PHP ${{ matrix.php }} (${{ matrix.stability }})
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        extensions: ctype, iconv, dom, filter, mbstring, pdo_sqlite
+        tools: composer:v2, phpunit
+
+    - name: Install Composer dependencies
+      run: composer update --prefer-dist --no-interaction --no-progress --${{ matrix.stability }}
+
+    - name: Run Laravel Pint (Code Style Check)
+      run: ./vendor/bin/pint --test
+
+    - name: Run phpstan (PHP Static Analysis Tool)
+      run: ./vendor/bin/phpstan
+
+    - name: Run Pest Tests
+      run: vendor/bin/pest --coverage --coverage-clover=clover.xml
+
+    - name: Upload Coverage Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: clover.xml
+
+  sonar-analysis:
+    name: SonarCloud Scan
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Download Coverage Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: coverage-report
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2.0.2
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      with:
+        args: >
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT }}
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+          -Dsonar.branch.name=${{ github.ref_name }}
+          -Dsonar.sources=./src
+          -Dsonar.tests=./tests
+          -Dsonar.php.coverage.reportPaths=clover.xml

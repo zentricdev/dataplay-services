@@ -1,0 +1,56 @@
+{
+    "name": "dataplay/services",
+    "description": "Playing with data for fun",
+    "version": "1.0.0-dev",
+    "type": "laravel-package",
+    "autoload": {
+        "psr-4": {
+            "DataPlay\\Services\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "DataPlay\\Services\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "require": {
+        "php": "^8.4",
+        "illuminate/support": "^11.0",
+        "jdorn/sql-formatter": "^1.2",
+        "wendelladriel/laravel-validated-dto": "^4.3"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.8",
+        "laravel/pint": "^1.26",
+        "orchestra/testbench": "^9.5",
+        "pestphp/pest": "^4.1",
+        "phpstan/phpstan": "^2.1"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "DataPlay\\Services\\DataPlayServiceProvider"
+            ]
+        },
+        "testbench": {
+            "providers": [
+                "DataPlay\\Services\\DataPlayServiceProvider"
+            ]
+        }
+    },
+    "scripts": {}
+}
