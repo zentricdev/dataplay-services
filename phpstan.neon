@@ -9,6 +9,5 @@ parameters:
     level: 9
 
     excludePaths:
-        - src/Commands
         - tests/*
         - vendor/*
