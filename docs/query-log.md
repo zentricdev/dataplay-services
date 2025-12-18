@@ -2,12 +2,12 @@
 
 # Query Log
 
-`QueryLog` is a minimalist service for logging all SQL queries executed by the application to a log file. Its main advantage is simplicity and the absence of heavy dependencies, offering a lightweight alternative to more comprehensive tools like **Laravel Telescope** or **Debugbar**.
+`QueryLog` is a minimalist service for logging all SQL queries executed by the application to a log file. Its main advantage is simplicity and the absence of heavy dependencies, offering a lightweight alternative to more comprehensive tools.
 
 ## Main Features
 
 - **Lightweight and Simple:** It focuses solely on logging SQL queries without overloading the application with additional functionality.
-- **Zero External Dependencies:** It does not require the installation of complex packages like `telescope` or `debugbar`, which may not be ideal for production environments or for quick, specific analysis.
+- **Zero External Dependencies:** It does not require the installation of complex packages, which may not be ideal for production environments or for quick, specific analysis.
 - **Dynamic Activation and Deactivation:** It can be enabled or disabled at runtime, allowing precise control over when queries should be logged.
 - **Plain File Output:** Queries are saved in a log file (`dataplay-queries.log`), facilitating their review with standard command-line tools like `cat`, `grep`, or `tail`.
 

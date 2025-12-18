@@ -10,8 +10,8 @@ Flexible way to generate mock data based on a defined schema, useful for seeding
 
 ## Data Sync Engine
 
-Creates hashes from data payloads to verify data integrity and detect changes, facilitanting data synchronization .
+Creates hashes from data payloads to verify data integrity and detect changes, facilitating data synchronization .
 
 ## Query Log
 
-Logs all database queries for debugging, performance analysis, and auditing, with the ability to be enabled or disabled dynamically.
+Minimalist service for logging all SQL queries executed by the application to a log file with zero dependencies, offering a lightweight alternative to more comprehensive tools
