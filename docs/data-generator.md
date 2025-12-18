@@ -69,6 +69,7 @@ $data = DataGenerator::new()
         // String replacement using placeholders {key}, {pos}, and {index}
         'item_id' => 'DP-ITEM-{pos}',
         // Use of a callable (closure) for advanced logic
+        'name' => fn() => fake()->name(),
         'is_active' => fn($args) => $args->index % 5 === 0,
         'date' => fn() => now()->subDays(rand(1, 30))->toDateString(),
     ])
@@ -79,5 +80,5 @@ $data = DataGenerator::new()
 
 // To use the data (without inserting it into the DB):
 $firstElement = $data->first();
-// ['item_id' => 'DP-ITEM-1', 'is_active' => true, 'date' => '...']
+// ['item_id' => 'DP-ITEM-1', 'name' => 'John Doe', 'is_active' => true, 'date' => '...']
 ```

@@ -35,7 +35,7 @@ jobs:
     - name: Run Laravel Pint (Code Style Check)
       run: ./vendor/bin/pint --test
 
-    - name: Run phpstan (PHP Static Analysis Tool)
+    - name: Run PHPStan (PHP Static Analysis Tool)
       run: ./vendor/bin/phpstan
 
     - name: Run Pest Tests

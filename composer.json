@@ -1,6 +1,7 @@
 {
     "name": "dataplay/services",
-    "description": "Playing with data for fun",
+    "description": "Just playing with data for fun.",
+    "license": "MIT",
     "version": "1.0.0-dev",
     "type": "laravel-package",
     "autoload": {
