@@ -1,22 +1,33 @@
-lint:
-	@make pint
-	@make phpstan
+.PHONY: lint pint phpstan pest coverage artisan
+
+PINT = ./vendor/bin/pint
+PHPSTAN = ./vendor/bin/phpstan
+PEST = ./vendor/bin/pest
+TESTBENCH = ./vendor/bin/testbench
+
+lint: pint phpstan composer-validate
+
+composer-validate:
+	@composer validate --strict
+
+pint-check:
+	@$(PINT) --test
 
 pint:
-	@./vendor/bin/pint
+	@$(PINT)
 
 phpstan:
-	@./vendor/bin/phpstan
+	@$(PHPSTAN)
 
 pest:
-	@./vendor/bin/pest $(filter-out $@,$(MAKECMDGOALS))
+	@$(PEST) $(filter-out $@,$(MAKECMDGOALS))
 
 coverage:
-	@make pest -- --coverage
+	@XDEBUG_MODE=coverage $(PEST) --coverage $(filter-out $@,$(MAKECMDGOALS))
 
 artisan:
-	@./vendor/bin/testbench $(filter-out $@,$(MAKECMDGOALS))
+	@$(TESTBENCH) $(filter-out $@,$(MAKECMDGOALS))
 
-# catch all
+# Catch-all para que no de error al pasar argumentos
 %:
-    @:
+	@:
