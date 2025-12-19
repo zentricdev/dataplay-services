@@ -10,7 +10,7 @@ Its purpose is to decouple data generation logic from Laravel's seeders.
 
 ---
 
-## Advantages Over Laravel Factories and Seeders
+## Data Generator vs Laravel Factories and Seeders
 
 While **Factories** and **Seeders** are the ideal solution for a Laravel application's database, `DataGenerator` offers specific benefits where its simplicity and low coupling are key:
 
@@ -73,10 +73,8 @@ $data = DataGenerator::new()
         'is_active' => fn($args) => $args->index % 5 === 0,
         'date' => fn() => now()->subDays(rand(1, 30))->toDateString(),
     ])
-    // 2. Define the number of items to generate
-    ->limit(10)
     // 3. Generate the LazyCollection of arrays
-    ->generate();
+    ->generate(10);
 
 // To use the data (without inserting it into the DB):
 $firstElement = $data->first();

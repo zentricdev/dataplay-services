@@ -26,12 +26,16 @@ class DataGenerator
     }
 
     /** @return \Illuminate\Support\LazyCollection<int, mixed> */
-    public function generate(): LazyCollection
+    public function generate(?int $limit = null): LazyCollection
     {
         throw_if(
             empty($this->schema),
             new DataGeneratorException('Cannot generate data without schema.')
         );
+
+        if ($limit) {
+            $this->limit = $limit;
+        }
 
         return LazyCollection::make(function(): Generator {
             $i = 0;

@@ -12,8 +12,7 @@ it('can generate data as defined in schema', function(): void {
             'id' => fn ($args) => $args->pos,
             'email' => 'user{pos}@example.com',
         ])
-        ->limit($limit)
-        ->generate();
+        ->generate($limit);
 
     expect($data)
         ->toBeInstanceOf(LazyCollection::class)
